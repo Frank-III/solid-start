@@ -1,0 +1,25 @@
+{
+  "name": "example-with-trpc",
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
+  },
+  "dependencies": {
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.14.1",
+    "@solidjs/start": "^1.0.4",
+    "@trpc/client": "next",
+    "@trpc/server": "next",
+    "solid-js": "^1.8.18",
+    "valibot": "^0.36.0",
+    "vinxi": "^0.3.14"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3"
+  }
+}
