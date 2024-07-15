@@ -3,7 +3,7 @@ import {
   httpBatchLink,
   loggerLink,
 } from '@trpc/client';
-import { AppRouter } from "~/server/api/root";
+import type { AppRouter } from "~/server/api/root";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return "";

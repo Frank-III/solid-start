@@ -1,5 +1,6 @@
 import type { APIEvent } from "@solidjs/start/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+import { createContext } from "~/server/api/context";
 import { appRouter } from "~/server/api/root";
 
 const handler = (event: APIEvent) =>
@@ -12,7 +13,7 @@ const handler = (event: APIEvent) =>
     // the router for handling the requests
     router: appRouter,
     // any arbitrary data that should be available to all actions
-    createContext:  () => event
+    createContext:  () => createContext(event)
   });
 
 export const GET = handler;
