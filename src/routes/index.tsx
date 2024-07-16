@@ -45,9 +45,9 @@ export default function Home() {
       <pre>
         <code>{JSON.stringify(hello(), null, 2)}</code>
       </pre>
-      {secret.error && <div>Errored</div>}
-      {secret.loading && <div>Loading</div>}
-      {secret.state === "ready" && <div>{secret()}</div>}
+      <Suspense fallback={<div>Unauthorized</div>}>
+        {secret()}
+      </Suspense>
     </main>
   );
 }
