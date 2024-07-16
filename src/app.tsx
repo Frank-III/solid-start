@@ -1,20 +1,26 @@
 import { MetaProvider, Title } from "@solidjs/meta";
-import { Router } from "@solidjs/router";
+import { Router, action, createAsync, redirect } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
-import { Suspense } from "solid-js";
+import { Show, Suspense } from "solid-js";
 import "./app.css";
+import { getAuthenticatedUser } from "./lib/auth-utils";
+import { getRequestEvent } from "solid-js/web";
+import { lucia } from "./lib/auth";
+import { appendHeader } from "vinxi/server";
+import { Nav } from "./components/Nav";
 
 export default function App() {
   return (
     <Router
-      root={props => (
-        <MetaProvider>
-          <Title>SolidStart - Basic</Title>
-          <a href="/">Index</a>
-          <a href="/about">About</a>
-          <Suspense>{props.children}</Suspense>
-        </MetaProvider>
-      )}
+      root={props => {
+        return (
+          <MetaProvider>
+            <Title>SolidStart - Basic</Title>
+            <Nav />
+            <Suspense>{props.children}</Suspense>
+          </MetaProvider>
+        );
+      }}
     >
       <FileRoutes />
     </Router>

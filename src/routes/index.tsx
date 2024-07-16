@@ -16,7 +16,7 @@ const getHello = cache(async () => {
 
 export const route = {
   load: () => {
-    // getHello()
+    getHello()
     // getAuthenticatedUser()
   }
 } satisfies RouteDefinition
@@ -29,11 +29,8 @@ export default function Home() {
     <main>
       <Title>Hello World</Title>
       <h1>Hello world!</h1>
-      <h2>Hi, {user()?.username}!</h2>
-			<p>Your user ID is {user()?.id}.</p>
-			<form method="post" action={logout}>
-				<button type="submit">Sign out</button>
-			</form>
+      {/* <h2>Hi, {user()?.username}!</h2>
+			<p>Your user ID is {user()?.id}.</p> */}
       <Counter />
       <p>
         Visit{" "}
@@ -51,14 +48,3 @@ export default function Home() {
     </main>
   );
 }
-
-const logout = action(async function logout() {
-  "use server";
-	const event = getRequestEvent()!;
-	if (!event.locals.session) {
-		return new Error("Unauthorized");
-	}
-	await lucia.invalidateSession(event.locals.session.id);
-	appendHeader(event.nativeEvent, "Set-Cookie", lucia.createBlankSessionCookie().serialize());
-	throw redirect("/login");
-})
