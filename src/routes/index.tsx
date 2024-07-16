@@ -7,14 +7,11 @@ import Counter from "~/components/Counter";
 import { api } from "~/lib/api";
 import { lucia } from "~/lib/auth";
 import { getAuthenticatedUser } from "~/lib/auth-utils";
-import { createTrpcServer } from "~/server/api/root";
+import { createTrpcServer, createTrpcServer2 } from "~/server/api/root";
 
 const getHello = cache(async () => {
     "use server"
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
-    const req = getRequestEvent()!
-    const trpcServer = createTrpcServer(req)
-    return await trpcServer.example.hello("world")
+    return await createTrpcServer2().example.hello("world")
   }, "hello")
 
 export const route = {
@@ -48,9 +45,9 @@ export default function Home() {
       <pre>
         <code>{JSON.stringify(hello(), null, 2)}</code>
       </pre>
-      {/* {secret.error && <div>Errored</div>}
+      {secret.error && <div>Errored</div>}
       {secret.loading && <div>Loading</div>}
-      {secret.state === "ready" && <div>{secret()}</div>} */}
+      {secret.state === "ready" && <div>{secret()}</div>}
     </main>
   );
 }

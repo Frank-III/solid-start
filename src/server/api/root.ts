@@ -1,4 +1,4 @@
-import type { RequestEvent } from "solid-js/web";
+import { getRequestEvent, type RequestEvent } from "solid-js/web";
 import { createContext } from "./context";
 import { exampleRouter } from "./routers/example";
 import { createTRPCRouter, createCallerFactory } from "./utils";
@@ -16,3 +16,4 @@ const createCaller = createCallerFactory(appRouter);
 
 
 export const createTrpcServer = (event: RequestEvent) => createCaller(() => createContext(event))
+export const createTrpcServer2 = () => createCaller(() => createContext(getRequestEvent()!))
