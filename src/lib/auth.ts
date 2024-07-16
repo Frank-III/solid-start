@@ -5,23 +5,26 @@ import { GitHub } from "arctic";
 
 import type { DatabaseUser } from "./db";
 
+// import { webcrypto } from "crypto";
+// globalThis.crypto = webcrypto as Crypto;
+
 const adapter = new BetterSqlite3Adapter(db, {
 	user: "user",
-	session: "session"
+	session: "session",
 });
 
 export const lucia = new Lucia(adapter, {
 	sessionCookie: {
 		attributes: {
-			secure: import.meta.env.PROD
-		}
+			secure: import.meta.env.PROD,
+		},
 	},
 	getUserAttributes: (attributes) => {
 		return {
 			username: attributes.username,
-			githubId: attributes.github_id
+			githubId: attributes.github_id,
 		};
-	}
+	},
 });
 
 declare module "lucia" {
@@ -31,5 +34,7 @@ declare module "lucia" {
 	}
 }
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
-export const github = new GitHub(process.env.GITHUB_CLIENT_ID!, process.env.GITHUB_CLIENT_SECRET!);
+export const github = new GitHub(
+	process.env.GITHUB_CLIENT_ID!,
+	process.env.GITHUB_CLIENT_SECRET!,
+);
